@@ -3,9 +3,7 @@
     const isDEVELOPMENT = false;
 
     if(isDEVELOPMENT) {
-        let elemDiv = document.createElement('div');
-        elemDiv.innerHTML = "<h2> DEVELOPMENT</h2>";
-        document.body.appendChild(elemDiv);
+        document.body.innerHTML = "<div><h2>DEVELOPMENT MODE</h2></div>" + document.body.innerHTML
     }
 
     let allStoryTableRows = document.getElementsByClassName("athing");
