@@ -14,7 +14,7 @@
     {
       "matches": ["https://www.reddit.com/*", "http://www.reddit.com/*"],
       "css": [],
-      "js": ["main.js", "lib/jquery.js"],
+      "js": ["main.js", "lib/jquery.js", "lib/d3-scale-chromatic.v1.min.js", "lib/d3.v4.min.js"],
       "run-at": "document_end"
     }
   ]
