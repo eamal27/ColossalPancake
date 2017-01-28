@@ -7,14 +7,21 @@
 
   "permissions": [
     "activeTab",
-    "https://ajax.googleapis.com/"
+		"https://massive-waffle.herokuapp.com/hn/",
+		"https://massive-waffle.herokuapp.com/reddit/"
   ],
 
   "content_scripts": [
     {
       "matches": ["https://www.reddit.com/*", "http://www.reddit.com/*"],
       "css": [],
-      "js": ["main.js", "reddit-highlight.js", "lib/jquery.js", "lib/d3-scale-chromatic.v1.min.js", "lib/d3.v4.min.js"],
+      "js": ["lib/jquery.js", "reddit-highlight.js", "lib/d3.v4.min.js", "lib/d3-scale-chromatic.v1.min.js"],
+      "run-at": "document_end"
+    },
+    {
+		  "matches": ["https://news.ycombinator.com/*"],
+      "css": [],
+      "js": ["hn-highlight.js", "lib/d3.v4.min.js", "lib/d3-scale-chromatic.v1.min.js"],
       "run-at": "document_end"
     }
   ]
