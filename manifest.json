@@ -14,7 +14,7 @@
     {
       "matches": ["https://www.reddit.com/*", "http://www.reddit.com/*"],
       "css": [],
-      "js": ["main.js", "jquery.js"],
+      "js": ["main.js", "lib/jquery.js"],
       "run-at": "document_end"
     }
   ]
