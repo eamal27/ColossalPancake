@@ -1,6 +1,8 @@
 (function() {
     const API_URL = "https://massive-waffle.herokuapp.com/hn/";
     const isDEVELOPMENT = false;
+    const shouldLogOutput = true;
+    const useD3 = true;
 
     if(isDEVELOPMENT) {
         document.body.innerHTML = "<div><h2>DEVELOPMENT MODE</h2></div>" + document.body.innerHTML
@@ -9,14 +11,15 @@
     let allStoryTableRows = document.getElementsByClassName("athing");
     for(let storyTR of allStoryTableRows) {
         let storyId = storyTR.attributes.id.textContent;
-        console.log(storyId);
+        if(shouldLogOutput) {console.log(storyId);}
         getXMLAndExecFunction(API_URL + storyId, function(result) {
             result = result || {};
-            console.log(storyId + ":" + (result.score || "noresult"));
-            storyTR.style.backgroundColor = getColorRGBFromValue(result.score);
+            if(shouldLogOutput) {console.log(storyId + ":" + (result.score || "noresult"));}
+
+            storyTR.style.backgroundColor = useD3 ? getPostColor(result.score) : getColorRGBFromValue(result.score);
         });
     }
-    console.log("Getting the first ID: " + allStoryTableRows[0].attributes.id.textContent);
+    if(shouldLogOutput) {console.log("Getting the first ID: " + allStoryTableRows[0].attributes.id.textContent);}
 
     /**
      * Takes a url to hit and a callback function to execute, the value passed to the callback will be the JSON object
@@ -40,7 +43,7 @@
                     let returnedJSON = JSON.parse(responseText);
                     callbackFunc(returnedJSON);
                 }else if(request.readyState == 4) {
-                    console.log("status is " + request.status);
+                    if(shouldLogOutput) {console.log("status is " + request.status);}
                     callbackFunc(null);
                 }
             };
@@ -48,7 +51,7 @@
             request.send(null);
         }
         catch (e) {
-            console.log("Request Failed", e);
+            if(shouldLogOutput) {console.log("Request Failed", e);}
         }
     }
 
@@ -65,13 +68,19 @@
         return Math.random() * (max - min) + min;
     }
 
+    function getPostColor(rp_score) {
+        let score = (rp_score + 1) /2;
+        let interpolatedRGBColor = d3.interpolateRdBu(score);
+        return interpolatedRGBColor;
+    }
+
     function getColorRGBFromValue(result) {
         if(result == null) {
-            console.log("No valid result returned, using gray");
+            if(shouldLogOutput) {console.log("No valid result returned, using gray");}
             return "rgb(224,224,224)";
         }
         let interpolatedResult = convertResultToValueBetween0And100(result);
-        console.log("Interpolated[0, 100]: " + interpolatedResult);
+        if(shouldLogOutput) {console.log("Interpolated[0, 100]: " + interpolatedResult);}
         let r, g, b;
 
         if (interpolatedResult <= 50) {
