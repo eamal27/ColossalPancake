@@ -2,8 +2,9 @@ $( document  ).ready(function() {
 		init();
 });
 
-$(document).on( "neverEndingLoad", function( event ) {
-		console.log("tree changed");
+// Listening for an event from Reddit Enhancement Suite
+window.addEventListener("neverEndingLoad", function( event ) {
+		addSentimentBars();
 });
 
 $(".button").on("click", function( event ) {
