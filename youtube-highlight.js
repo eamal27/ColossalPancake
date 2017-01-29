@@ -79,9 +79,7 @@
             return "rgb(224,224,224)";
         }
 
-        let score = (rp_score + 1) /2;
-        let interpolatedRGBColor = d3.interpolateRdBu(score);
-        return interpolatedRGBColor;
+        return getColorFromValue(rp_score)
     }
 
     function elipsizeString(comment) {

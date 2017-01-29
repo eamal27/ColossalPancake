@@ -2,7 +2,6 @@
     const API_URL = "https://massive-waffle.herokuapp.com/hn/";
     const isDEVELOPMENT = false;
     const shouldLogOutput = true;
-    const useD3 = true;
 
     if(isDEVELOPMENT) {
         document.body.innerHTML = "<div><h2>DEVELOPMENT MODE</h2></div>" + document.body.innerHTML
@@ -16,7 +15,7 @@
             result = result || {};
             if(shouldLogOutput) {console.log(storyId + ":" + (result.score || "noresult"));}
 
-            storyTR.style.backgroundColor = useD3 ? getPostColor(result.score) : getColorRGBFromValue(result.score);
+            storyTR.style.backgroundColor = getColorFromValue(result.score);
         });
     }
     if(shouldLogOutput) {console.log("Getting the first ID: " + allStoryTableRows[0].attributes.id.textContent);}
@@ -66,34 +65,6 @@
 
     function generateRandomValueBetween(min, max) {
         return Math.random() * (max - min) + min;
-    }
-
-    function getPostColor(rp_score) {
-        let score = (rp_score + 1) /2;
-        let interpolatedRGBColor = d3.interpolateRdBu(score);
-        return interpolatedRGBColor;
-    }
-
-    function getColorRGBFromValue(result) {
-        if(result == null) {
-            if(shouldLogOutput) {console.log("No valid result returned, using gray");}
-            return "rgb(224,224,224)";
-        }
-        let interpolatedResult = convertResultToValueBetween0And100(result);
-        if(shouldLogOutput) {console.log("Interpolated[0, 100]: " + interpolatedResult);}
-        let r, g, b;
-
-        if (interpolatedResult <= 50) {
-            r = Math.floor((255 * (interpolatedResult / 50)));
-            g = 255;
-            b = Math.floor((255 * (interpolatedResult / 50)));
-        }
-        else {
-            r = 255;
-            g = Math.floor((100 - interpolatedResult) / 50 * 255);
-            b = Math.floor((100 - interpolatedResult) / 50 * 255);
-        }
-        return "rgb(" + r + "," + g + "," + b + ")";
     }
 
     function convertResultToValueBetween0And100(result) {

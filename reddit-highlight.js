@@ -83,11 +83,6 @@ function getPostId(e) {
 		return id__[0]
 }
 
-function getColorFromValue(s) {
-		var score = (s + 1) /2;
-		return d3.interpolateRdBu(score)
-}
-
 function getRedditScore(submissionId, callback) {
 		var serverUrl = 'https://massive-waffle.herokuapp.com/reddit/'
 		$.getJSON(serverUrl + submissionId, function( data  ) {
