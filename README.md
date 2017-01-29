@@ -6,15 +6,13 @@ Companion Chrome Extension to the [Sentiment Analyzer backend](https://github.co
 
 ## HackerNews
 
-Red: Evil:smiling_imp: Green: Good :angel:
-
-![Legend](readme_resources/legend.jpg)
-
-![Legend](readme_resources/hacker_news_demo.gif)
+![hacker news demo](readme_resources/hacker_news_demo.gif)
 
 ## Reddit
 
-TODO
+Show up left of the story
+
+![reddit demo](readme_resources/reddit_demo.gif)
 
 # Overall Architecture
 
