@@ -9,9 +9,9 @@ $( document  ).ready(function() {
 //		console.log("tree changed");
 //});
 
-$("body").on( "neverEndingLoad", function( event ) {
+$("document").on( "neverEndingLoad", function( event ) {
 		console.log("tree changed");
-} )
+});
 
 
 
@@ -52,7 +52,7 @@ var reddit_posts = $(".thing");
 
 								getRedditScore(rp_id, function(result) {
 										result = result || {};
-										console.log(rp_id + ":" + (result.score || "noresult"));
+										console.log(rp_id + ":" + (result.score ));
 										rp_meter.css("background",getColorFromValue(result.score));
 								});
 								
@@ -84,7 +84,13 @@ function getPostId(e) {
 }
 
 function getColorFromValue(s) {
+		if (s > -0.05 && s < 0) { s = -0.05; } 
+		else if (s > 0 && s < 0.05) { s = 0.05; }
+
+		console.log(s)
+
 		var score = (s + 1) /2;
+
 		return d3.interpolateRdBu(score)
 }
 
