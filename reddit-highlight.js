@@ -2,14 +2,21 @@ $( document  ).ready(function() {
 		init();
 });
 
-$("document").on( "neverEndingLoad", function( event ) {
+$(document).on( "neverEndingLoad", function( event ) {
 		console.log("tree changed");
 });
+
+$(".button").on("click", function( event ) {
+		setTimeout(function(){
+				console.log("tree changed");
+				addSentimentBars();
+		}, 1000);
+});
+
 
 function init() {
 		console.log("highlight begin");
 		addSentimentBars();
-
 }
 
 function addSentimentBars() {
@@ -56,16 +63,19 @@ var reddit_posts = $(".thing");
 				var comments = $(".comment");
 				comments.each(function(){
 						var comment = $(this);
-						var commentStr = $(this).find(".md").text();
-						getCommentScore(commentStr, function(result) {
-								result = result || {};
-								comment.find(".entry").css({
-										"background": getColorFromValue(result.score),
-										"border-radius": "12px",
-										"padding": "5px"
+						if (!comment.hasClass("sentiment")) {
+								var commentStr = comment.find(".md").text();
+								getCommentScore(commentStr, function(result) {
+										result = result || {};
+										comment.find(".entry").css({
+												"background": getColorFromValue(result.score),
+												"border-radius": "12px",
+												"padding": "5px"
+										});
+										console.log("\n\n" + commentStr + "\n" + result.comment + "\n" + result.score)
 								});
-								console.log("\n\n" + commentStr + "\n" + result.comment + "\n" + result.score)
-						});
+								comment.addClass("sentiment");
+						}
 				});
 		}
 }
