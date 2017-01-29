@@ -27,6 +27,11 @@
       "matches": ["https://www.amazon.ca/*", "https://www.amazon.com/*"],
       "js": ["lib/jquery.js", "amazon-highlight.js", "lib/d3.v4.min.js", "lib/d3-scale-chromatic.v1.min.js"],
       "run-at": "document_end"
+    },
+    {
+      "matches": ["https://www.youtube.com/*"],
+      "js": ["youtube-highlight.js", "lib/d3.v4.min.js", "lib/d3-scale-chromatic.v1.min.js"],
+      "run-at": "document_end"
     }
   ]
 }
