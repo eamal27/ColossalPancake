@@ -5,11 +5,15 @@
   "description": "Shows Sentiment Analysis color of a post based on comments",
   "version": "1.0",
 
+  "background": {
+    "persistent":true,
+    "page":"background.html"
+  },
   "permissions": [
-    "activeTab",
-		"https://massive-waffle.herokuapp.com/hn/",
-		"https://massive-waffle.herokuapp.com/reddit/",
-		"https://massive-waffle.herokuapp.com/score_comment"
+    "tabs",
+    "https://massive-waffle.herokuapp.com/hn/",
+    "https://massive-waffle.herokuapp.com/reddit/",
+    "https://massive-waffle.herokuapp.com/score_comment"
   ],
 
   "content_scripts": [
