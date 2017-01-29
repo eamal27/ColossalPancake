@@ -1,8 +1,8 @@
 {
   "manifest_version": 2,
 
-  "name": "MassiveWaffle",
-  "description": "Shows Sentiment Analysis color of a post based on comments",
+  "name": "CommentSentiment",
+  "description": "Displays Sentiment of a post in colour based on comments",
   "version": "1.0",
 
   "background": {
