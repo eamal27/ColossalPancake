@@ -1,19 +1,10 @@
 $( document  ).ready(function() {
-		var num_posts = 0;
-
 		init();
-
 });
-
-//$(".thing").bind("DOMSubtreeModified", function() {
-//		console.log("tree changed");
-//});
 
 $("document").on( "neverEndingLoad", function( event ) {
 		console.log("tree changed");
 });
-
-
 
 function init() {
 		console.log("highlight begin");
@@ -68,7 +59,11 @@ var reddit_posts = $(".thing");
 						var commentStr = $(this).find(".md").text();
 						getCommentScore(commentStr, function(result) {
 								result = result || {};
-								comment.find(".entry").css("background",getColorFromValue(result.score));
+								comment.find(".entry").css({
+										"background": getColorFromValue(result.score),
+										"border-radius": "12px",
+										"padding": "5px"
+								});
 								console.log("\n\n" + commentStr + "\n" + result.comment + "\n" + result.score)
 						});
 				});
