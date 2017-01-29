@@ -2,6 +2,12 @@
     const API_URL = "https://massive-waffle.herokuapp.com/score_comment";
     const shouldLogOutput = true;
 
+    // Set a listener for changing page (specifically for youtube because its single page app)
+    chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+        console.log("URL CHANGED: " + request.data.url);
+        window.setTimeout(prepareListeners, 1500);
+    });
+
     let observeDOM = (function(){
         let MutationObserver = window.MutationObserver || window.WebKitMutationObserver,
             eventListenerSupported = window.addEventListener;
@@ -23,30 +29,38 @@
         }
     })();
 
-    // Observe a specific DOM element:
-    let foo = document.getElementById("watch-discussion");
+    //=============================
+    //=============================
+    //=============================
 
-    observeDOM(foo ,function(){
-        let allComments = document.getElementsByClassName("comment-renderer-text-content");
-        for(let comment of allComments) {
-            if(hasCommentNOTBeenLoadedBefore(comment)) {
-                let commentText = comment.innerText;
-                if (shouldLogOutput) {
-                    console.log(commentText);
-                }
+    function prepareListeners() {
+        let watchDiscussion = document.getElementById("watch-discussion");
+        console.log(watchDiscussion);
 
-                postData(API_URL, commentText, function (result) {
-                    result = result || {};
-                    let elipsisComment = elipsizeString(commentText);
-                    if (shouldLogOutput) {
-                        console.log(elipsisComment + ": " + (result.score || "noresult"));
+        if(watchDiscussion) {
+            observeDOM(watchDiscussion, function(){
+                let allComments = document.getElementsByClassName("comment-renderer-text-content");
+                for(let comment of allComments) {
+                    if(hasCommentNOTBeenLoadedBefore(comment)) {
+                        let commentText = comment.innerText;
+                        if (shouldLogOutput) {
+                            console.log(commentText);
+                        }
+
+                        postData(API_URL, commentText, function (result) {
+                            result = result || {};
+                            let elipsisComment = elipsizeString(commentText);
+                            if (shouldLogOutput) {
+                                console.log(elipsisComment + ": " + (result.score || "noresult"));
+                            }
+                            comment.style.backgroundColor = getPostColor(result.score);
+                            markCommentAsCompleted(comment);
+                        });
                     }
-                    comment.style.backgroundColor = getPostColor(result.score);
-                    markCommentAsCompleted(comment);
-                });
-            }
+                }
+            });
         }
-    });
+    }
 
     function hasCommentNOTBeenLoadedBefore(comment) {
         return !comment.attributes["is-sentiment-complete"] || comment.attributes["is-sentiment-complete"].textContent != "true";
@@ -65,9 +79,7 @@
             return "rgb(224,224,224)";
         }
 
-        let score = (rp_score + 1) /2;
-        let interpolatedRGBColor = d3.interpolateRdBu(score);
-        return interpolatedRGBColor;
+        return getColorFromValue(rp_score)
     }
 
     function elipsizeString(comment) {

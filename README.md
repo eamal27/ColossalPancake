@@ -14,6 +14,10 @@ Show up left of the story
 
 ![reddit demo](readme_resources/reddit_demo.gif)
 
+## Youtube
+
+![youtube demo](readme_resources/youtube_demo.gif)
+
 # Overall Architecture
 
 ![Sequence Diagram for main flow](readme_resources/SequenceDiagramForAVGSentimenColoring.jpg)

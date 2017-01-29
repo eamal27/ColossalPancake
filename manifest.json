@@ -5,32 +5,36 @@
   "description": "Shows Sentiment Analysis color of a post based on comments",
   "version": "1.0",
 
+  "background": {
+    "persistent":true,
+    "page":"background.html"
+  },
   "permissions": [
-    "activeTab",
-		"https://massive-waffle.herokuapp.com/hn/",
-		"https://massive-waffle.herokuapp.com/reddit/",
-		"https://massive-waffle.herokuapp.com/score_comment"
+    "tabs",
+    "https://massive-waffle.herokuapp.com/hn/",
+    "https://massive-waffle.herokuapp.com/reddit/",
+    "https://massive-waffle.herokuapp.com/score_comment"
   ],
 
   "content_scripts": [
     {
       "matches": ["https://www.reddit.com/*", "http://www.reddit.com/*"],
-      "js": ["lib/jquery.js", "reddit-highlight.js", "lib/d3.v4.min.js", "lib/d3-scale-chromatic.v1.min.js"],
+      "js": ["lib/jquery.js", "reddit-highlight.js", "lib/d3.v4.min.js", "lib/d3-scale-chromatic.v1.min.js", "colour.js"],
       "run-at": "document_end"
     },
     {
       "matches": ["https://news.ycombinator.com/*"],
-      "js": ["hn-highlight.js", "lib/d3.v4.min.js", "lib/d3-scale-chromatic.v1.min.js"],
+      "js": ["hn-highlight.js", "lib/d3.v4.min.js", "lib/d3-scale-chromatic.v1.min.js", "colour.js"],
       "run-at": "document_end"
     },
     {
-      "matches": ["https://www.amazon.ca/*", "https://www.amazon.com/*"],
-      "js": ["lib/jquery.js", "amazon-highlight.js", "lib/d3.v4.min.js", "lib/d3-scale-chromatic.v1.min.js"],
+      "matches": ["https://twitter.com/*"],
+      "js": ["lib/jquery.js", "twitter-highlight.js", "lib/d3.v4.min.js", "lib/d3-scale-chromatic.v1.min.js", "colour.js"],
       "run-at": "document_end"
     },
     {
       "matches": ["https://www.youtube.com/*"],
-      "js": ["youtube-highlight.js", "lib/d3.v4.min.js", "lib/d3-scale-chromatic.v1.min.js"],
+      "js": ["youtube-highlight.js", "lib/d3.v4.min.js", "lib/d3-scale-chromatic.v1.min.js", "colour.js"],
       "run-at": "document_end"
     }
   ]
