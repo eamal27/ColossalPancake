@@ -1,8 +1,19 @@
 $( document  ).ready(function() {
+		var num_posts = 0;
 
 		init();
 
 });
+
+//$(".thing").bind("DOMSubtreeModified", function() {
+//		console.log("tree changed");
+//});
+
+$("body").on( "neverEndingLoad", function( event ) {
+		console.log("tree changed");
+} )
+
+
 
 function init() {
 		console.log("highlight begin");
@@ -13,38 +24,55 @@ function init() {
 function addSentimentBars() {
 var reddit_posts = $(".thing");
 
-		reddit_posts.each(function() {
-				var rp = $(this);
-				var rp_id = getPostId(rp);
-				var rp_color = getPostColor(rp_id);
-				rp
-						.css("position","relative")
-						.append("<div class='sbar' id='"+rp_id+"'></div");
+		if($("body").hasClass("listing-page")) {
+				reddit_posts.each(function() {
+						var rp = $(this);
+						if(!rp.hasClass("sentiment")) {
+								var rp_id = getPostId(rp);
+								var rp_color = getColorFromValue(rp_id);
+								rp
+										.css("position","relative")
+										.append("<div class='sbar' id='"+rp_id+"'></div");
 
-				var rp_meter = rp.find(".sbar");
-				rp_meter.css({
-				//						"background": rp_color,
-						"width": "7px",
-						"height": "100%",
-						"position": "absolute",
-						"top": "0",
-						"left": "-4px"
+								var rp_meter = rp.find(".sbar");
+								rp_meter.css({
+										"width": "7px",
+										"height": "100%",
+										"position": "absolute",
+										"top": "0",
+										"left": "-4px"
+								});
+
+								if(rp_meter.parent().hasClass("reddit-link")) {
+										rp_meter.css({
+												"width": "4px",
+												"left": "-5px"
+										});
+								}
+
+								getRedditScore(rp_id, function(result) {
+										result = result || {};
+										console.log(rp_id + ":" + (result.score || "noresult"));
+										rp_meter.css("background",getColorFromValue(result.score));
+								});
+								
+								rp.addClass("sentiment");
+						}		
 				});
+		}
 
-				if(rp_meter.parent().hasClass("reddit-link")) {
-						rp_meter.css({
-								"width": "4px",
-								"left": "-5px"
+		if($("body").hasClass("comments-page")) {
+				var comments = $(".comment");
+				comments.each(function(){
+						var comment = $(this);
+						var commentStr = $(this).find(".md").text();
+						getCommentScore(commentStr, function(result) {
+								result = result || {};
+								comment.find(".entry").css("background",getColorFromValue(result.score));
+								console.log("\n\n" + commentStr + "\n" + result.comment + "\n" + result.score)
 						});
-				}
-
-				getRedditScore(rp_id, function(result) {
-						result = result || {};
-						console.log(rp_id + ":" + (result.score || "noresult"));
-						rp_meter.css("background",getPostColor(result.score));
 				});
-
-		});
+		}
 }
 
 function getPostId(e) {
@@ -55,14 +83,21 @@ function getPostId(e) {
 		return id__[0]
 }
 
-function getPostColor(rp_score) {
-		var score = (rp_score + 1) /2;
+function getColorFromValue(s) {
+		var score = (s + 1) /2;
 		return d3.interpolateRdBu(score)
 }
 
 function getRedditScore(submissionId, callback) {
 		var serverUrl = 'https://massive-waffle.herokuapp.com/reddit/'
 		$.getJSON(serverUrl + submissionId, function( data  ) {
-				callback(data)
+				callback(data);
 		}); 
+}
+
+function getCommentScore(commentStr, callback) {
+		var serverUrl = 'https://massive-waffle.herokuapp.com/score_comment'
+		$.post( serverUrl, { comment: commentStr }, function( data  ) {
+				  callback(data);
+		});
 }
