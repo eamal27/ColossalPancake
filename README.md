@@ -1,8 +1,10 @@
-# ColossalPancake
+# CommentSentiment
 
-Chrome Extension to highlight the sentiment of each story based on the comments of that story
+Chrome Extension to highlight the sentiment of posts based on the comments of poster
 
 Companion Chrome Extension to the [Sentiment Analyzer backend](https://github.com/jipson7/MassiveWaffle)
+
+Can be found on the Chrome Webstore [here](https://chrome.google.com/webstore/detail/commentsentiment/agfnbimaklojeooldnocggmbgkmaehej?utm_source=chrome-ntp-icon)
 
 ## Reddit
 
