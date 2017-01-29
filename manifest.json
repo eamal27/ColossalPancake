@@ -8,7 +8,8 @@
   "permissions": [
     "activeTab",
 		"https://massive-waffle.herokuapp.com/hn/",
-		"https://massive-waffle.herokuapp.com/reddit/"
+		"https://massive-waffle.herokuapp.com/reddit/",
+		"https://massive-waffle.herokuapp.com/score_comment"
   ],
 
   "content_scripts": [
