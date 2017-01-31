@@ -90,14 +90,14 @@ function getPostId(e) {
 }
 
 function getRedditScore(submissionId, callback) {
-		var serverUrl = 'https://massive-waffle.herokuapp.com/reddit/'
+		var serverUrl = 'https://commentsentiment.objectivetruth.ca/reddit/'
 		$.getJSON(serverUrl + submissionId, function( data  ) {
 				callback(data);
 		}); 
 }
 
 function getCommentScore(commentStr, callback) {
-		var serverUrl = 'https://massive-waffle.herokuapp.com/score_comment'
+		var serverUrl = 'https://commentsentiment.objectivetruth.ca/score_comment'
 		$.post( serverUrl, { comment: commentStr }, function( data  ) {
 				  callback(data);
 		});

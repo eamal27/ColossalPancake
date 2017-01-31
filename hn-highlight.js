@@ -1,7 +1,7 @@
 (function() {
-    const API_URL = "https://massive-waffle.herokuapp.com/hn/";
+    const API_URL = "https://commentsentiment.objectivetruth.ca/hn/";
     const isDEVELOPMENT = false;
-    const shouldLogOutput = true;
+    const shouldLogOutput = false;
 
     if(isDEVELOPMENT) {
         document.body.innerHTML = "<div><h2>DEVELOPMENT MODE</h2></div>" + document.body.innerHTML

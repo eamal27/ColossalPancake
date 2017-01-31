@@ -11,9 +11,9 @@
   },
   "permissions": [
     "tabs",
-    "https://massive-waffle.herokuapp.com/hn/",
-    "https://massive-waffle.herokuapp.com/reddit/",
-    "https://massive-waffle.herokuapp.com/score_comment"
+    "https://commentsentiment.stage.objectivetruth.ca/hn/",
+    "https://commentsentiment.stage.objectivetruth.ca/reddit/",
+    "https://commentsentiment.stage.objectivetruth.ca/score_comment"
   ],
 
   "content_scripts": [

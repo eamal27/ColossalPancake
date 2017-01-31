@@ -1,5 +1,5 @@
 (function() {
-    const API_URL = "https://massive-waffle.herokuapp.com/score_comment";
+    const API_URL = "https://commentsentiment.objectivetruth.ca/score_comment";
     const shouldLogOutput = true;
 
     // Set a listener for changing page (specifically for youtube because its single page app)
